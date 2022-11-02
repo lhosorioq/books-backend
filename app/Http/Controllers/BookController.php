@@ -35,11 +35,21 @@ class BookController extends Controller
 
     public function update(Request $request, Book $book)
     {
-        //
+        $request->validate(
+            [
+                'title' => ['required']
+            ]
+        );
+        
+        $book->title = $request->input('title');
+        $book->save();
+
+        return $book;
     }
 
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return response()->noContent();
     }
 }
